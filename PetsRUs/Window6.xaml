@@ -1,0 +1,22 @@
+﻿<Window x:Class="PetsRUs.Window6"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PetsRUs"
+        mc:Ignorable="d"
+        Title="Shopping Cart" Height="450" Width="800">
+    <Grid>
+        <ListView x:Name="cartListView" Margin="10,10,10,50">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Supplies Name" DisplayMemberBinding="{Binding Supplies_Name}"/>
+                    <GridViewColumn Header="Supply Category" DisplayMemberBinding="{Binding Supply_Category}"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"/>
+                    <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="Checkout" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Width="100" Click="CheckoutButton_Click"/>
+    </Grid>
+</Window>

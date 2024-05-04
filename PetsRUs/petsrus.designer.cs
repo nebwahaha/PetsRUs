@@ -277,15 +277,9 @@ namespace PetsRUs
 		
 		private string _Contact_Number;
 		
-		private string _Order_ID;
-		
 		private EntitySet<Order> _Orders;
 		
-		private EntitySet<Order> _Orders1;
-		
 		private EntitySet<Pet> _Pets;
-		
-		private EntityRef<Order> _Order;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -297,16 +291,12 @@ namespace PetsRUs
     partial void OnCustomer_NameChanged();
     partial void OnContact_NumberChanging(string value);
     partial void OnContact_NumberChanged();
-    partial void OnOrder_IDChanging(string value);
-    partial void OnOrder_IDChanged();
     #endregion
 		
 		public Customer()
 		{
 			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
-			this._Orders1 = new EntitySet<Order>(new Action<Order>(this.attach_Orders1), new Action<Order>(this.detach_Orders1));
 			this._Pets = new EntitySet<Pet>(new Action<Pet>(this.attach_Pets), new Action<Pet>(this.detach_Pets));
-			this._Order = default(EntityRef<Order>);
 			OnCreated();
 		}
 		
@@ -370,30 +360,6 @@ namespace PetsRUs
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Order_ID", DbType="VarChar(255)")]
-		public string Order_ID
-		{
-			get
-			{
-				return this._Order_ID;
-			}
-			set
-			{
-				if ((this._Order_ID != value))
-				{
-					if (this._Order.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnOrder_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Order_ID = value;
-					this.SendPropertyChanged("Order_ID");
-					this.OnOrder_IDChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Orders", ThisKey="Customer_ID", OtherKey="Customer_ID")]
 		public EntitySet<Order> Orders
 		{
@@ -407,19 +373,6 @@ namespace PetsRUs
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order1", Storage="_Orders1", ThisKey="Customer_ID", OtherKey="Customer_ID")]
-		public EntitySet<Order> Orders1
-		{
-			get
-			{
-				return this._Orders1;
-			}
-			set
-			{
-				this._Orders1.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Pet", Storage="_Pets", ThisKey="Customer_ID", OtherKey="Customer_ID")]
 		public EntitySet<Pet> Pets
 		{
@@ -430,40 +383,6 @@ namespace PetsRUs
 			set
 			{
 				this._Pets.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_Customer", Storage="_Order", ThisKey="Order_ID", OtherKey="Order_ID", IsForeignKey=true)]
-		public Order Order
-		{
-			get
-			{
-				return this._Order.Entity;
-			}
-			set
-			{
-				Order previousValue = this._Order.Entity;
-				if (((previousValue != value) 
-							|| (this._Order.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Order.Entity = null;
-						previousValue.Customers.Remove(this);
-					}
-					this._Order.Entity = value;
-					if ((value != null))
-					{
-						value.Customers.Add(this);
-						this._Order_ID = value.Order_ID;
-					}
-					else
-					{
-						this._Order_ID = default(string);
-					}
-					this.SendPropertyChanged("Order");
-				}
 			}
 		}
 		
@@ -499,18 +418,6 @@ namespace PetsRUs
 			entity.Customer = null;
 		}
 		
-		private void attach_Orders1(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer1 = this;
-		}
-		
-		private void detach_Orders1(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer1 = null;
-		}
-		
 		private void attach_Pets(Pet entity)
 		{
 			this.SendPropertyChanging();
@@ -536,8 +443,6 @@ namespace PetsRUs
 		
 		private string _Staff_ID;
 		
-		private string _Payment_ID;
-		
 		private string _Order_Desc;
 		
 		private System.Nullable<System.DateTime> _Order_Date;
@@ -548,25 +453,15 @@ namespace PetsRUs
 		
 		private string _Supplies_ID;
 		
-		private EntitySet<Customer> _Customers;
-		
 		private EntitySet<Payment> _Payments;
 		
 		private EntityRef<Customer> _Customer;
-		
-		private EntityRef<Customer> _Customer1;
-		
-		private EntityRef<Payment> _Payment;
-		
-		private EntityRef<Payment> _Payment1;
 		
 		private EntityRef<Pet> _Pet;
 		
 		private EntityRef<PetSupply> _PetSupply;
 		
 		private EntityRef<Staff> _Staff;
-		
-		private EntityRef<Staff> _Staff1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -578,8 +473,6 @@ namespace PetsRUs
     partial void OnCustomer_IDChanged();
     partial void OnStaff_IDChanging(string value);
     partial void OnStaff_IDChanged();
-    partial void OnPayment_IDChanging(string value);
-    partial void OnPayment_IDChanged();
     partial void OnOrder_DescChanging(string value);
     partial void OnOrder_DescChanged();
     partial void OnOrder_DateChanging(System.Nullable<System.DateTime> value);
@@ -594,16 +487,11 @@ namespace PetsRUs
 		
 		public Order()
 		{
-			this._Customers = new EntitySet<Customer>(new Action<Customer>(this.attach_Customers), new Action<Customer>(this.detach_Customers));
 			this._Payments = new EntitySet<Payment>(new Action<Payment>(this.attach_Payments), new Action<Payment>(this.detach_Payments));
 			this._Customer = default(EntityRef<Customer>);
-			this._Customer1 = default(EntityRef<Customer>);
-			this._Payment = default(EntityRef<Payment>);
-			this._Payment1 = default(EntityRef<Payment>);
 			this._Pet = default(EntityRef<Pet>);
 			this._PetSupply = default(EntityRef<PetSupply>);
 			this._Staff = default(EntityRef<Staff>);
-			this._Staff1 = default(EntityRef<Staff>);
 			OnCreated();
 		}
 		
@@ -638,7 +526,7 @@ namespace PetsRUs
 			{
 				if ((this._Customer_ID != value))
 				{
-					if ((this._Customer.HasLoadedOrAssignedValue || this._Customer1.HasLoadedOrAssignedValue))
+					if (this._Customer.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -662,7 +550,7 @@ namespace PetsRUs
 			{
 				if ((this._Staff_ID != value))
 				{
-					if ((this._Staff.HasLoadedOrAssignedValue || this._Staff1.HasLoadedOrAssignedValue))
+					if (this._Staff.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -671,30 +559,6 @@ namespace PetsRUs
 					this._Staff_ID = value;
 					this.SendPropertyChanged("Staff_ID");
 					this.OnStaff_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Payment_ID", DbType="VarChar(255)")]
-		public string Payment_ID
-		{
-			get
-			{
-				return this._Payment_ID;
-			}
-			set
-			{
-				if ((this._Payment_ID != value))
-				{
-					if ((this._Payment.HasLoadedOrAssignedValue || this._Payment1.HasLoadedOrAssignedValue))
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPayment_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Payment_ID = value;
-					this.SendPropertyChanged("Payment_ID");
-					this.OnPayment_IDChanged();
 				}
 			}
 		}
@@ -807,19 +671,6 @@ namespace PetsRUs
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_Customer", Storage="_Customers", ThisKey="Order_ID", OtherKey="Order_ID")]
-		public EntitySet<Customer> Customers
-		{
-			get
-			{
-				return this._Customers;
-			}
-			set
-			{
-				this._Customers.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_Payment", Storage="_Payments", ThisKey="Order_ID", OtherKey="Order_ID")]
 		public EntitySet<Payment> Payments
 		{
@@ -863,108 +714,6 @@ namespace PetsRUs
 						this._Customer_ID = default(string);
 					}
 					this.SendPropertyChanged("Customer");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order1", Storage="_Customer1", ThisKey="Customer_ID", OtherKey="Customer_ID", IsForeignKey=true)]
-		public Customer Customer1
-		{
-			get
-			{
-				return this._Customer1.Entity;
-			}
-			set
-			{
-				Customer previousValue = this._Customer1.Entity;
-				if (((previousValue != value) 
-							|| (this._Customer1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Customer1.Entity = null;
-						previousValue.Orders1.Remove(this);
-					}
-					this._Customer1.Entity = value;
-					if ((value != null))
-					{
-						value.Orders1.Add(this);
-						this._Customer_ID = value.Customer_ID;
-					}
-					else
-					{
-						this._Customer_ID = default(string);
-					}
-					this.SendPropertyChanged("Customer1");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Payment_Order", Storage="_Payment", ThisKey="Payment_ID", OtherKey="Payment_ID", IsForeignKey=true)]
-		public Payment Payment
-		{
-			get
-			{
-				return this._Payment.Entity;
-			}
-			set
-			{
-				Payment previousValue = this._Payment.Entity;
-				if (((previousValue != value) 
-							|| (this._Payment.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Payment.Entity = null;
-						previousValue.Orders.Remove(this);
-					}
-					this._Payment.Entity = value;
-					if ((value != null))
-					{
-						value.Orders.Add(this);
-						this._Payment_ID = value.Payment_ID;
-					}
-					else
-					{
-						this._Payment_ID = default(string);
-					}
-					this.SendPropertyChanged("Payment");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Payment_Order1", Storage="_Payment1", ThisKey="Payment_ID", OtherKey="Payment_ID", IsForeignKey=true)]
-		public Payment Payment1
-		{
-			get
-			{
-				return this._Payment1.Entity;
-			}
-			set
-			{
-				Payment previousValue = this._Payment1.Entity;
-				if (((previousValue != value) 
-							|| (this._Payment1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Payment1.Entity = null;
-						previousValue.Orders1.Remove(this);
-					}
-					this._Payment1.Entity = value;
-					if ((value != null))
-					{
-						value.Orders1.Add(this);
-						this._Payment_ID = value.Payment_ID;
-					}
-					else
-					{
-						this._Payment_ID = default(string);
-					}
-					this.SendPropertyChanged("Payment1");
 				}
 			}
 		}
@@ -1071,40 +820,6 @@ namespace PetsRUs
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_Order1", Storage="_Staff1", ThisKey="Staff_ID", OtherKey="Staff_ID", IsForeignKey=true)]
-		public Staff Staff1
-		{
-			get
-			{
-				return this._Staff1.Entity;
-			}
-			set
-			{
-				Staff previousValue = this._Staff1.Entity;
-				if (((previousValue != value) 
-							|| (this._Staff1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Staff1.Entity = null;
-						previousValue.Orders1.Remove(this);
-					}
-					this._Staff1.Entity = value;
-					if ((value != null))
-					{
-						value.Orders1.Add(this);
-						this._Staff_ID = value.Staff_ID;
-					}
-					else
-					{
-						this._Staff_ID = default(string);
-					}
-					this.SendPropertyChanged("Staff1");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1123,18 +838,6 @@ namespace PetsRUs
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Customers(Customer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Order = this;
-		}
-		
-		private void detach_Customers(Customer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Order = null;
 		}
 		
 		private void attach_Payments(Payment entity)
@@ -1170,10 +873,6 @@ namespace PetsRUs
 		
 		private string _Payment_Method;
 		
-		private EntitySet<Order> _Orders;
-		
-		private EntitySet<Order> _Orders1;
-		
 		private EntityRef<Order> _Order;
 		
     #region Extensibility Method Definitions
@@ -1198,8 +897,6 @@ namespace PetsRUs
 		
 		public Payment()
 		{
-			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
-			this._Orders1 = new EntitySet<Order>(new Action<Order>(this.attach_Orders1), new Action<Order>(this.detach_Orders1));
 			this._Order = default(EntityRef<Order>);
 			OnCreated();
 		}
@@ -1348,32 +1045,6 @@ namespace PetsRUs
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Payment_Order", Storage="_Orders", ThisKey="Payment_ID", OtherKey="Payment_ID")]
-		public EntitySet<Order> Orders
-		{
-			get
-			{
-				return this._Orders;
-			}
-			set
-			{
-				this._Orders.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Payment_Order1", Storage="_Orders1", ThisKey="Payment_ID", OtherKey="Payment_ID")]
-		public EntitySet<Order> Orders1
-		{
-			get
-			{
-				return this._Orders1;
-			}
-			set
-			{
-				this._Orders1.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Order_Payment", Storage="_Order", ThisKey="Order_ID", OtherKey="Order_ID", IsForeignKey=true)]
 		public Order Order
 		{
@@ -1427,30 +1098,6 @@ namespace PetsRUs
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
-		
-		private void attach_Orders(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Payment = this;
-		}
-		
-		private void detach_Orders(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Payment = null;
-		}
-		
-		private void attach_Orders1(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Payment1 = this;
-		}
-		
-		private void detach_Orders1(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Payment1 = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Pet")]
@@ -1472,8 +1119,6 @@ namespace PetsRUs
 		private string _Pet_Gender;
 		
 		private string _AdoptionStatus_ID;
-		
-		private string _Staff_ID;
 		
 		private string _Customer_ID;
 		
@@ -1503,8 +1148,6 @@ namespace PetsRUs
     partial void OnPet_GenderChanged();
     partial void OnAdoptionStatus_IDChanging(string value);
     partial void OnAdoptionStatus_IDChanged();
-    partial void OnStaff_IDChanging(string value);
-    partial void OnStaff_IDChanged();
     partial void OnCustomer_IDChanging(string value);
     partial void OnCustomer_IDChanged();
     partial void OnVaccination_StatusChanging(string value);
@@ -1659,26 +1302,6 @@ namespace PetsRUs
 					this._AdoptionStatus_ID = value;
 					this.SendPropertyChanged("AdoptionStatus_ID");
 					this.OnAdoptionStatus_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Staff_ID", DbType="VarChar(255)")]
-		public string Staff_ID
-		{
-			get
-			{
-				return this._Staff_ID;
-			}
-			set
-			{
-				if ((this._Staff_ID != value))
-				{
-					this.OnStaff_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Staff_ID = value;
-					this.SendPropertyChanged("Staff_ID");
-					this.OnStaff_IDChanged();
 				}
 			}
 		}
@@ -2073,8 +1696,6 @@ namespace PetsRUs
 		
 		private EntitySet<Order> _Orders;
 		
-		private EntitySet<Order> _Orders1;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2094,7 +1715,6 @@ namespace PetsRUs
 		public Staff()
 		{
 			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
-			this._Orders1 = new EntitySet<Order>(new Action<Order>(this.attach_Orders1), new Action<Order>(this.detach_Orders1));
 			OnCreated();
 		}
 		
@@ -2211,19 +1831,6 @@ namespace PetsRUs
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Staff_Order1", Storage="_Orders1", ThisKey="Staff_ID", OtherKey="Staff_ID")]
-		public EntitySet<Order> Orders1
-		{
-			get
-			{
-				return this._Orders1;
-			}
-			set
-			{
-				this._Orders1.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2254,18 +1861,6 @@ namespace PetsRUs
 		{
 			this.SendPropertyChanging();
 			entity.Staff = null;
-		}
-		
-		private void attach_Orders1(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Staff1 = this;
-		}
-		
-		private void detach_Orders1(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Staff1 = null;
 		}
 	}
 	

@@ -1,0 +1,30 @@
+﻿<Window x:Class="PetsRUs.Window3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Adoption Confirmation" Height="300" Width="400">
+    <Grid Background="#F0F0F0">
+        <!-- Title -->
+        <TextBlock Text="Adoption Confirmation" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20"/>
+        <TextBox x:Name="txtPetID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
+
+        <!-- Customer Info -->
+        <Border BorderThickness="1" BorderBrush="#CCCCCC" Background="White" Margin="20,60,20,0" Padding="10">
+            <StackPanel>
+                <!-- Customer Name -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Customer Name:" FontWeight="Bold" Width="120" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtCustomerName" Width="200"/>
+                </StackPanel>
+
+                <!-- Contact Number -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="Contact Number:" FontWeight="Bold" Width="120" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtContactNumber" Width="200"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Confirm Button -->
+        <Button x:Name="btnConfirm" Content="Confirm Adoption" HorizontalAlignment="Center" Width="150" Margin="0,192,0,45" Click="ConfirmButton_Click"/>
+    </Grid>
+</Window>

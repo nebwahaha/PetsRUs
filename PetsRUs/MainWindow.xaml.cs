@@ -20,9 +20,9 @@ namespace PetsRUs
     /// </summary>
     public partial class MainWindow : Window
     {
-        petsrusDataContext _lsDC = null;
-        string username = "";
-        bool loginlog = false;
+        private petsrusDataContext _lsDC = null;
+        private string username = "";
+        private bool loginlog = false;
 
         public MainWindow()
         {
@@ -46,25 +46,25 @@ namespace PetsRUs
                     foreach (var login in petsrus)
                     {
                         if (login.Staff_Password == txtbpass.Text)
+                        {
                             loginlog = true;
-                        username = login.Staff_Name;
-
+                            username = login.Staff_Name;
+                        }
                     }
                 }
-
             }
             if (loginlog)
             {
-                MessageBox.Show($"Success! Welcome pare {username}");
-                MainWindow MainWindow = new MainWindow();
-                MainWindow.Show();
+                MessageBox.Show($"Success! Welcome {username}");
+                Window1 window1 = new Window1(username, username, _lsDC);
+                window1.Show();
+
                 this.Close();
             }
             else
             {
-                MessageBox.Show("username and password is incorrect");
+                MessageBox.Show("Username and password are incorrect");
             }
         }
-
     }
 }
