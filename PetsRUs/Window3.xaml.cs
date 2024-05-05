@@ -20,7 +20,8 @@ namespace PetsRUs
         private string _customerID;
         private string _orderID;
         private string _petID;
-        private string _username; // New variable to store the username
+        private string _username;
+        private string _staffID;// New variable to store the username
 
         // Constructor with three arguments: customerID, orderID, and petID
         public Window3(string customerID, string orderID, string petID)
@@ -33,14 +34,14 @@ namespace PetsRUs
         }
 
         // Constructor with four arguments: customerID, orderID, petID, and username
-        public Window3(string customerID, string orderID, string petID, string username)
+        public Window3(string customerID, string orderID, string petID, string staffID)
         {
             InitializeComponent();
             _lsDC = new petsrusDataContext(Properties.Settings.Default.petsrusConnectionString);
             _customerID = customerID;
             _orderID = orderID;
             _petID = petID;
-            _username = username;
+            _staffID = staffID; // Use the value of staffID passed from Window2
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -79,11 +80,21 @@ namespace PetsRUs
                 };
                 _lsDC.Orders.InsertOnSubmit(newOrder);
 
+                // Update Pet table to set adoption status to "AS2"
+                var adoptedPets = from pet in _lsDC.Pets
+                                  where pet.Pet_ID == _petID
+                                  select pet;
+
+                foreach (var pet in adoptedPets)
+                {
+                    pet.AdoptionStatus_ID = "AS2";
+                }
+
                 // Submit changes to the database
                 _lsDC.SubmitChanges();
 
                 MessageBox.Show("Order confirmed successfully.");
-                this.Close(); // Close Window3 after order confirmation
+                this.Close(); 
 
                 // Open Window4 for payment processing
                 Window4 window4 = new Window4(_orderID);

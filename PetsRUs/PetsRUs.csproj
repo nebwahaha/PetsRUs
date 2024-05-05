@@ -153,5 +153,20 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PETS r US.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="2-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PETS_r_US__1_-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="petsrus logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -66,7 +66,7 @@ namespace PetsRUs
                     Price = selectedSupply.Price,
                     Quantity = 1 // Default quantity is 1
                 };
-                `   
+                
                 // Add the item to the cart
                 _cartItems.Add(itemId, cartItem);
             }

@@ -15,20 +15,19 @@ using System.Windows.Shapes;
 
 namespace PetsRUs
 {
-    /// <summary>
-    /// Interaction logic for Window2.xaml
-    /// </summary>
     public partial class Window2 : Window
     {
         private petsrusDataContext _lsDC;
-        private string _username; // Declare _username variable
+        private string _username;
+        private string _staffID;// Declare _username variable
 
-        public Window2(string petType, string username) // Add username parameter to constructor
+        public Window2(string petType, string username)
         {
             InitializeComponent();
             _lsDC = new petsrusDataContext(Properties.Settings.Default.petsrusConnectionString);
-            LoadPets(petType); // Load pets data filtered by pet type
-            _username = username; // Store the username
+            LoadPets(petType);
+            _username = username;
+            _staffID = username; // Assign _staffID the value of username
         }
 
         private void LoadPets(string petType)
@@ -52,16 +51,12 @@ namespace PetsRUs
         }
         private string GenerateCustomerID()
         {
-            // Implement logic to generate unique Customer_ID
-            // For example, you can count the existing customers and increment the count
             int count = _lsDC.Customers.Count() + 1;
             return "CS" + count.ToString("D3"); // Format count to have leading zeros if necessary
         }
 
         private string GenerateOrderID()
         {
-            // Implement logic to generate unique Order_ID
-            // Similar to GenerateCustomerID, you can count existing orders and increment the count
             int count = _lsDC.Orders.Count() + 1;
             return "OID" + count.ToString("D3"); // Format count to have leading zeros if necessary
         }
@@ -80,8 +75,7 @@ namespace PetsRUs
                     dynamic selectedPet = petListView.SelectedItem;
                     string petID = selectedPet.Pet_ID;
 
-                    // Create an instance of Window3 and pass Customer_ID, Order_ID, and Pet_ID
-                    Window3 window3 = new Window3(customerID, orderID, petID, _username);
+                    Window3 window3 = new Window3(customerID, orderID, petID, _staffID);
                     window3.Show();
                     this.Close();
                 }
