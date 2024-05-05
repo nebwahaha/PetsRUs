@@ -94,7 +94,7 @@ namespace PetsRUs
                 _lsDC.SubmitChanges();
 
                 MessageBox.Show("Order confirmed successfully.");
-                this.Close(); 
+                this.Close();
 
                 // Open Window4 for payment processing
                 Window4 window4 = new Window4(_orderID);
