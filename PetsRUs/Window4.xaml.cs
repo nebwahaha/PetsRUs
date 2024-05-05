@@ -31,33 +31,42 @@ namespace PetsRUs
             decimal totalAmount;
             decimal paymentAmount;
 
-            if (decimal.TryParse(txtTotalAmount.Text, out totalAmount) && 
+            if (decimal.TryParse(txtTotalAmount.Text, out totalAmount) &&
                 decimal.TryParse(txtPaymentAmount.Text, out paymentAmount))
             {
-                // Insert into Payment Table
-                Payment newPayment = new Payment
+                decimal remainingBalance = paymentAmount - totalAmount;
+
+                // Check if the payment amount is sufficient
+                if (remainingBalance >= 0)
                 {
-                    Payment_ID = txtPaymentID.Text,
-                    Order_ID = _orderID,
-                    Total_Amount = totalAmount,
-                    Payment_Amount = paymentAmount,
-                    Payment_Change = paymentMethod == "Cash" ? paymentAmount - totalAmount : 0,
-                    Payment_Date = DateTime.Now,
-                    Payment_Method = paymentMethod
-                };
+                    // Insert into Payment Table
+                    Payment newPayment = new Payment
+                    {
+                        Payment_ID = txtPaymentID.Text,
+                        Order_ID = _orderID,
+                        Total_Amount = totalAmount,
+                        Payment_Amount = paymentAmount,
+                        Payment_Change = remainingBalance,
+                        Payment_Date = DateTime.Now,
+                        Payment_Method = paymentMethod
+                    };
 
-                _lsDC.Payments.InsertOnSubmit(newPayment);
-                _lsDC.SubmitChanges();
+                    _lsDC.Payments.InsertOnSubmit(newPayment);
+                    _lsDC.SubmitChanges();
 
-                MessageBox.Show("Payment Successful!");
-                this.Close();
+                    MessageBox.Show("Payment Successful!");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Payment amount exceeds the total amount!");
+                }
             }
             else
             {
                 MessageBox.Show("Please enter valid payment amount.");
             }
         }
-
         private string GeneratePaymentID()
         {
             // Generate a unique Payment_ID

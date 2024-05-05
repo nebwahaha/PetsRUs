@@ -29,8 +29,20 @@
       <Association Name="Order_Payment" Member="Payments" ThisKey="Order_ID" OtherKey="Order_ID" Type="Payment" />
       <Association Name="Customer_Order" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
       <Association Name="Pet_Order" Member="Pet" ThisKey="Pet_ID" OtherKey="Pet_ID" Type="Pet" IsForeignKey="true" />
-      <Association Name="Staff_Order" Member="Staff" ThisKey="Staff_ID" OtherKey="Staff_ID" Type="Staff" IsForeignKey="true" />
       <Association Name="PetSupply_Order" Member="PetSupply" ThisKey="Supplies_ID" OtherKey="Supplies_ID" Type="PetSupply" IsForeignKey="true" />
+      <Association Name="Staff_Order" Member="Staff" ThisKey="Staff_ID" OtherKey="Staff_ID" Type="Staff" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Payment" Member="Payments">
+    <Type Name="Payment">
+      <Column Name="Payment_ID" Type="System.String" DbType="VarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Order_ID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Total_Amount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Payment_Amount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Payment_Change" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Payment_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Payment_Method" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Order_Payment" Member="Order" ThisKey="Order_ID" OtherKey="Order_ID" Type="Order" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Pet" Member="Pets">
@@ -49,6 +61,17 @@
       <Association Name="AdoptionStatus_Pet" Member="AdoptionStatus" ThisKey="AdoptionStatus_ID" OtherKey="AdoptionStatus_ID" Type="AdoptionStatus" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.PetSupplies" Member="PetSupplies">
+    <Type Name="PetSupply">
+      <Column Name="Supplies_ID" Type="System.String" DbType="VarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Supplies_Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Supply_Category" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Stock_ID" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="PetSupply_Order" Member="Orders" ThisKey="Supplies_ID" OtherKey="Supplies_ID" Type="Order" />
+      <Association Name="PetSupply_StockSupply" Member="StockSupplies" ThisKey="Supplies_ID" OtherKey="Supplies_ID" Type="StockSupply" />
+    </Type>
+  </Table>
   <Table Name="dbo.Staff" Member="Staffs">
     <Type Name="Staff">
       <Column Name="Staff_ID" Type="System.String" DbType="VarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -65,29 +88,6 @@
       <Column Name="Supplies_ID" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="Stock_Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="PetSupply_StockSupply" Member="PetSupply" ThisKey="Supplies_ID" OtherKey="Supplies_ID" Type="PetSupply" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PetSupplies" Member="PetSupplies">
-    <Type Name="PetSupply">
-      <Column Name="Supplies_ID" Type="System.String" DbType="VarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Supplies_Name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Supply_Category" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Column Name="Price" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
-      <Column Name="Stock_ID" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Association Name="PetSupply_Order" Member="Orders" ThisKey="Supplies_ID" OtherKey="Supplies_ID" Type="Order" />
-      <Association Name="PetSupply_StockSupply" Member="StockSupplies" ThisKey="Supplies_ID" OtherKey="Supplies_ID" Type="StockSupply" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Payment" Member="Payments">
-    <Type Name="Payment">
-      <Column Name="Payment_ID" Type="System.String" DbType="VarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Order_ID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Column Name="Total_Amount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="Payment_Amount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="Payment_Change" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
-      <Column Name="Payment_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="Payment_Method" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Association Name="Order_Payment" Member="Order" ThisKey="Order_ID" OtherKey="Order_ID" Type="Order" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
