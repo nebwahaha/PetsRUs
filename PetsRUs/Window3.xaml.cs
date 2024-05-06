@@ -75,7 +75,7 @@ namespace PetsRUs
                     Staff_ID = _staffID, // Use _staffID here
                     Order_Desc = "Adopting",
                     Order_Date = DateTime.Now,
-                    Order_Status = "Pending",
+                    Order_Status = "Complete",
                     Pet_ID = _petID
                 };
                 _lsDC.Orders.InsertOnSubmit(newOrder);
@@ -94,10 +94,10 @@ namespace PetsRUs
                 _lsDC.SubmitChanges();
 
                 MessageBox.Show("Order confirmed successfully.");
-                this.Close(); 
+                this.Close();
 
-                // Open Window4 for payment processing
-                Window4 window4 = new Window4(_orderID);
+                // Open Window4 for payment processing, passing _orderID and _customerID
+                Window4 window4 = new Window4(_orderID, _customerID);
                 window4.Show();
             }
             catch (Exception ex)

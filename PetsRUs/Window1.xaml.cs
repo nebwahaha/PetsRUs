@@ -68,7 +68,8 @@ namespace PetsRUs
                                 Stock_ID = s.Stock_ID
                             }).ToList();
 
-            Window5 window5 = new Window5(supplies.Cast<dynamic>().ToList());
+            // Create an instance of Window5 and pass supplies along with _staffID
+            Window5 window5 = new Window5(supplies.Cast<dynamic>().ToList(), _staffID);
             window5.Show();
         }
 
@@ -77,11 +78,12 @@ namespace PetsRUs
         {
             Window2 window2 = new Window2(petType, username, _staffID); // Pass _staffID here
             window2.Show();
-        }   
+        }
 
         private void OpenWindow5WithSupplies(dynamic supplies)
         {
-            Window5 window5 = new Window5(supplies.Cast<dynamic>().ToList());
+            // Create an instance of Window5 and pass both supplies and _staffID
+            Window5 window5 = new Window5(supplies.Cast<dynamic>().ToList(), _staffID);
             window5.Show();
         }
     }

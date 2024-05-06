@@ -7,7 +7,13 @@
         mc:Ignorable="d"
         Title="Shopping Cart" Height="450" Width="800">
     <Grid>
-        <ListView x:Name="cartListView" Margin="10,10,10,50">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Cart Items ListView -->
+        <ListView x:Name="cartListView" Margin="10,10,10,50" Grid.Column="0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Supplies Name" DisplayMemberBinding="{Binding Supplies_Name}"/>
@@ -17,6 +23,24 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Checkout" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" Width="100" Click="CheckoutButton_Click"/>
+
+        <!-- Customer Information and Payment Details -->
+        <StackPanel Grid.Column="1" Margin="10">
+            <TextBlock Text="Customer Name:" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBox x:Name="txtCustomerName" Margin="0,0,0,10" Width="305" />
+            
+            <TextBlock Text="Payment Method:" FontWeight="Bold" Margin="0,0,0,10"/>
+            <ComboBox x:Name="cmbPaymentMethod" Width="150" Margin="0,0,0,10">
+                <ComboBoxItem Content="Cash"/>
+                <ComboBoxItem Content="Card"/>
+            </ComboBox>
+            
+            <TextBlock Text="Total Amount" FontWeight="Bold" Margin="0,20,0,10"/>
+            <TextBlock x:Name="txtTotalAmount" Width="248"/>
+            <TextBlock Text="Payment Amount" FontWeight="Bold" Margin="0,20,0,10"/>
+            <TextBox x:Name="txtPaymentAmount" Margin="0,0,0,10" Width="268"/>
+
+            <Button Content="Checkout" HorizontalAlignment="Center" Width="120" Click="CheckoutButton_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

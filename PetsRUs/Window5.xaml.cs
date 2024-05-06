@@ -18,6 +18,8 @@ namespace PetsRUs
     {
         private Dictionary<string, dynamic> _cartItems = new Dictionary<string, dynamic>();
         private List<dynamic> _supplies;
+        private string _staffID;
+        private petsrusDataContext _lsDC;
         //private List<dynamic> _cartItems = new List<dynamic>();
 
         private void LoadSupplies()
@@ -25,10 +27,11 @@ namespace PetsRUs
             petSupplyListView.ItemsSource = _supplies;
         }
 
-        public Window5(List<dynamic> supplies)
+        public Window5(List<dynamic> supplies, string staffID)
         {
             InitializeComponent();
             _supplies = supplies;
+            _staffID = staffID; // Assign the value of staffID to _staffID
             LoadSupplies();
         }
 
@@ -50,7 +53,8 @@ namespace PetsRUs
                     Supplies_Name = existingItem.Supplies_Name,
                     Supply_Category = existingItem.Supply_Category,
                     Price = existingItem.Price,
-                    Quantity = existingItem.Quantity + 1 // Increment the quantity
+                    Quantity = existingItem.Quantity + 1,
+                    Supplies_ID = selectedSupply.Supplies_ID // Include Supplies_ID
                 };
 
                 // Update the item in the cart
@@ -64,9 +68,10 @@ namespace PetsRUs
                     Supplies_Name = selectedSupply.Supplies_Name,
                     Supply_Category = selectedSupply.Supply_Category,
                     Price = selectedSupply.Price,
-                    Quantity = 1 // Default quantity is 1
+                    Quantity = 1,
+                    Supplies_ID = selectedSupply.Supplies_ID // Include Supplies_ID
                 };
-                
+
                 // Add the item to the cart
                 _cartItems.Add(itemId, cartItem);
             }
@@ -76,7 +81,10 @@ namespace PetsRUs
 
         private void ShowCart_Click(object sender, RoutedEventArgs e)
         {
-            Window6 window6 = new Window6(_cartItems);
+            petsrusDataContext lsDC = new petsrusDataContext(); // Initialize _lsDC
+
+            // Assuming _staffID is already defined somewhere in your code
+            Window6 window6 = new Window6(_cartItems, lsDC, _staffID); // Pass _lsDC to Window6
             window6.Show();
         }
     }

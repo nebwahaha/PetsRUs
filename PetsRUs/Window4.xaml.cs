@@ -10,11 +10,13 @@ namespace PetsRUs
     {
         private petsrusDataContext _lsDC;
         private string _orderID;
+        private string _customerID;
 
-        public Window4(string orderID)
+        public Window4(string orderID, string customerID)
         {
             InitializeComponent();
             _orderID = orderID;
+            _customerID = customerID; // Assign customerID to _customerID
             _lsDC = new petsrusDataContext(Properties.Settings.Default.petsrusConnectionString);
 
             // Generate Payment_ID
