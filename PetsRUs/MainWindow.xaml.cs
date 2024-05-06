@@ -23,6 +23,7 @@ namespace PetsRUs
         private petsrusDataContext _lsDC = null;
         private string username = "";
         private bool loginlog = false;
+        private string _staffID = ""; // Declare _staffID at the class level
 
         public MainWindow()
         {
@@ -49,6 +50,7 @@ namespace PetsRUs
                         {
                             loginlog = true;
                             username = login.Staff_Name;
+                            _staffID = login.Staff_ID; // Assign staff ID here
                         }
                     }
                 }
@@ -56,9 +58,8 @@ namespace PetsRUs
             if (loginlog)
             {
                 MessageBox.Show($"Success! Welcome {username}");
-                Window1 window1 = new Window1(username, username, _lsDC);
+                Window1 window1 = new Window1(username, _staffID, _lsDC); // Pass _staffID here
                 window1.Show();
-
                 this.Close();
             }
             else

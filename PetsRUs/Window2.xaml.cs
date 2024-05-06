@@ -19,15 +19,15 @@ namespace PetsRUs
     {
         private petsrusDataContext _lsDC;
         private string _username;
-        private string _staffID;// Declare _username variable
+        private string _staffID;
 
-        public Window2(string petType, string username)
+        public Window2(string petType, string username, string staffID)
         {
             InitializeComponent();
             _lsDC = new petsrusDataContext(Properties.Settings.Default.petsrusConnectionString);
             LoadPets(petType);
             _username = username;
-            _staffID = username; // Assign _staffID the value of username
+            _staffID = staffID; // Assign _staffID here
         }
 
         private void LoadPets(string petType)

@@ -21,7 +21,7 @@ namespace PetsRUs
         private string _orderID;
         private string _petID;
         private string _username;
-        private string _staffID;// New variable to store the username
+        private string _staffID;
 
         // Constructor with three arguments: customerID, orderID, and petID
         public Window3(string customerID, string orderID, string petID)
@@ -72,11 +72,11 @@ namespace PetsRUs
                 {
                     Order_ID = _orderID,
                     Customer_ID = _customerID,
-                    Staff_ID = _username,
+                    Staff_ID = _staffID, // Use _staffID here
                     Order_Desc = "Adopting",
                     Order_Date = DateTime.Now,
                     Order_Status = "Pending",
-                    Pet_ID = _petID // Assuming you have stored the selected pet ID
+                    Pet_ID = _petID
                 };
                 _lsDC.Orders.InsertOnSubmit(newOrder);
 

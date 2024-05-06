@@ -17,15 +17,18 @@ namespace PetsRUs
     public partial class Window1 : Window
     {
         private string username;
+        private string _staffID;
         private petsrusDataContext _lsDC;
 
-        public Window1(string staffName, string username, petsrusDataContext lsDC)
+        public Window1(string username, string staffID, petsrusDataContext lsDC)
         {
             InitializeComponent();
-            txtStaffName.Text = $"Staff: {staffName}";
+            txtStaffName.Text = $"Staff: {username}";
             this.username = username;
+            _staffID = staffID; // Assign _staffID
             _lsDC = lsDC;
         }
+
 
         private void DogButton_Click(object sender, RoutedEventArgs e)
         {
@@ -72,9 +75,9 @@ namespace PetsRUs
 
         private void OpenWindow2WithPetType(string petType)
         {
-            Window2 window2 = new Window2(petType, username);
+            Window2 window2 = new Window2(petType, username, _staffID); // Pass _staffID here
             window2.Show();
-        }
+        }   
 
         private void OpenWindow5WithSupplies(dynamic supplies)
         {
