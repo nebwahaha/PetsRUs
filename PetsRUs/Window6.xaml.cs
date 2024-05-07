@@ -53,6 +53,9 @@ namespace PetsRUs
             string paymentMethod = cmbPaymentMethod.SelectedItem?.ToString();
             decimal totalAmount;
             decimal paymentAmount;
+            // Declare a counter outside the loop
+            int orderCounter = _lsDC.Orders.Count() + 1;
+
 
             if (decimal.TryParse(txtTotalAmount.Text, out totalAmount) &&
                 decimal.TryParse(txtPaymentAmount.Text, out paymentAmount)) // Parse payment amount
@@ -87,6 +90,10 @@ namespace PetsRUs
                         // Insert orders for each item in the cart
                         foreach (var item in _cartItems.Values)
                         {
+                            // Generate a unique order ID based on the counter
+                            orderID = "OID" + orderCounter.ToString("D3");
+                            orderCounter++; // Increment the counter for the next order
+
                             Order newOrder = new Order
                             {
                                 Order_ID = orderID,
@@ -104,14 +111,14 @@ namespace PetsRUs
                         Payment newPayment = new Payment
                         {
                             Payment_ID = GeneratePaymentID(),
-                            Order_ID = orderID,
+                            Customer_ID = customerID, // Assign the customer ID
                             Total_Amount = totalAmount,
-                            Payment_Amount = paymentAmount, // Assign payment amount
-                            Payment_Change = remainingBalance, // Assign remaining balance as change
+                            Payment_Amount = paymentAmount,
+                            Payment_Change = remainingBalance,
                             Payment_Method = paymentMethod,
-                            Payment_Date = DateTime.Now, // Set the payment date to the current date and time
-                                                         // Add other payment details like Payment_Amount, Payment_Amount, etc.
+                            Payment_Date = DateTime.Now
                         };
+
                         _lsDC.Payments.InsertOnSubmit(newPayment);
 
                         // Submit changes to the database
@@ -135,6 +142,8 @@ namespace PetsRUs
                 MessageBox.Show("Please enter valid total amount and payment amount.");
             }
         }
+
+
         private void IncreaseQuantity_Click(object sender, RoutedEventArgs e)
         {
             dynamic selectedCartItem = cartListView.SelectedItem;

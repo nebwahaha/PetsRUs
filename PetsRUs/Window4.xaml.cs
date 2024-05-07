@@ -45,7 +45,7 @@ namespace PetsRUs
                     Payment newPayment = new Payment
                     {
                         Payment_ID = txtPaymentID.Text,
-                        Order_ID = _orderID,
+                        Customer_ID = _customerID, // Use _customerID instead of _orderID
                         Total_Amount = totalAmount,
                         Payment_Amount = paymentAmount,
                         Payment_Change = remainingBalance,
@@ -69,6 +69,7 @@ namespace PetsRUs
                 MessageBox.Show("Please enter valid payment amount.");
             }
         }
+
         private string GeneratePaymentID()
         {
             // Generate a unique Payment_ID

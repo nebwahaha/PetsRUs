@@ -13,6 +13,7 @@
       <Column Name="Customer_Name" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="Contact_Number" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Association Name="Customer_Order" Member="Orders" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Order" />
+      <Association Name="Customer_Payment" Member="Payments" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Payment" />
       <Association Name="Customer_Pet" Member="Pets" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Pet" />
     </Type>
   </Table>
@@ -26,7 +27,6 @@
       <Column Name="Order_Status" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="Pet_ID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="Supplies_ID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
-      <Association Name="Order_Payment" Member="Payments" ThisKey="Order_ID" OtherKey="Order_ID" Type="Payment" />
       <Association Name="Customer_Order" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
       <Association Name="Pet_Order" Member="Pet" ThisKey="Pet_ID" OtherKey="Pet_ID" Type="Pet" IsForeignKey="true" />
       <Association Name="PetSupply_Order" Member="PetSupply" ThisKey="Supplies_ID" OtherKey="Supplies_ID" Type="PetSupply" IsForeignKey="true" />
@@ -36,13 +36,13 @@
   <Table Name="dbo.Payment" Member="Payments">
     <Type Name="Payment">
       <Column Name="Payment_ID" Type="System.String" DbType="VarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Order_ID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
       <Column Name="Total_Amount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="Payment_Amount" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="Payment_Change" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="Payment_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="Payment_Method" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
-      <Association Name="Order_Payment" Member="Order" ThisKey="Order_ID" OtherKey="Order_ID" Type="Order" IsForeignKey="true" />
+      <Column Name="Customer_ID" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="Customer_Payment" Member="Customer" ThisKey="Customer_ID" OtherKey="Customer_ID" Type="Customer" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Pet" Member="Pets">
