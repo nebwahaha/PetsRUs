@@ -83,8 +83,8 @@ namespace PetsRUs
         {
             petsrusDataContext lsDC = new petsrusDataContext(); // Initialize _lsDC
 
-            // Assuming _staffID is already defined somewhere in your code
-            Window6 window6 = new Window6(_cartItems, lsDC, _staffID); // Pass _lsDC to Window6
+            // Assuming _staffID and _supplies are already defined somewhere in your code
+            Window6 window6 = new Window6(_cartItems, lsDC, _staffID, _supplies); // Pass _lsDC and _supplies to Window6
             window6.Show();
         }
     }

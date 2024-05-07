@@ -19,16 +19,19 @@ namespace PetsRUs
         private Dictionary<string, dynamic> _cartItems = new Dictionary<string, dynamic>();
         private petsrusDataContext _lsDC;
         private string _staffID;
+        private List<dynamic> _supplies; // Add _supplies as a class member
 
-        public Window6(Dictionary<string, dynamic> cartItems, petsrusDataContext lsDC, string staffID)
+        public Window6(Dictionary<string, dynamic> cartItems, petsrusDataContext lsDC, string staffID, List<dynamic> supplies)
         {
             InitializeComponent();
             _cartItems = cartItems;
             _lsDC = lsDC; // Initialize _lsDC
             _staffID = staffID;
+            _supplies = supplies; // Initialize _supplies
             LoadCartItems();
             CalculateTotalAmount();
         }
+
         private void LoadCartItems()
         {
             cartListView.ItemsSource = _cartItems.Values.ToList();
@@ -131,6 +134,63 @@ namespace PetsRUs
             {
                 MessageBox.Show("Please enter valid total amount and payment amount.");
             }
+        }
+        private void IncreaseQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic selectedCartItem = cartListView.SelectedItem;
+            if (selectedCartItem != null)
+            {
+                string itemId = $"{selectedCartItem.Supplies_Name}_{selectedCartItem.Supply_Category}_{selectedCartItem.Price}";
+                if (_cartItems.ContainsKey(itemId))
+                {
+                    // Create a new instance of the anonymous type with the updated quantity
+                    var updatedItem = new
+                    {
+                        Supplies_Name = selectedCartItem.Supplies_Name,
+                        Supply_Category = selectedCartItem.Supply_Category,
+                        Price = selectedCartItem.Price,
+                        Quantity = selectedCartItem.Quantity + 1,
+                        Supplies_ID = selectedCartItem.Supplies_ID
+                    };
+
+                    // Update the item in the cart
+                    _cartItems[itemId] = updatedItem;
+                    LoadCartItems();
+                    CalculateTotalAmount();
+                }
+            }
+        }
+
+        private void DecreaseQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            dynamic selectedCartItem = cartListView.SelectedItem;
+            if (selectedCartItem != null)
+            {
+                string itemId = $"{selectedCartItem.Supplies_Name}_{selectedCartItem.Supply_Category}_{selectedCartItem.Price}";
+                if (_cartItems.ContainsKey(itemId) && _cartItems[itemId].Quantity > 1)
+                {
+                    // Create a new instance of the anonymous type with the updated quantity
+                    var updatedItem = new
+                    {
+                        Supplies_Name = selectedCartItem.Supplies_Name,
+                        Supply_Category = selectedCartItem.Supply_Category,
+                        Price = selectedCartItem.Price,
+                        Quantity = selectedCartItem.Quantity - 1,
+                        Supplies_ID = selectedCartItem.Supplies_ID
+                    };
+
+                    // Update the item in the cart
+                    _cartItems[itemId] = updatedItem;
+                    LoadCartItems();
+                    CalculateTotalAmount();
+                }
+            }
+        }
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window5 window5 = new Window5(_supplies, _staffID);
+            window5.Show();
+            this.Close();
         }
 
         private string GenerateCustomerID()
