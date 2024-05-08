@@ -8,17 +8,49 @@
         Title="Shopping Cart" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="719*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Cart Items ListView -->
-        <ListView x:Name="cartListView" Margin="10,10,10,129" Grid.Column="0">
+        <ListView x:Name="cartListView" Margin="34,53,227,82" BorderBrush="#FFFFF5E5" BorderThickness="10,10,10,10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Supplies Name" DisplayMemberBinding="{Binding Supplies_Name}"/>
-                    <GridViewColumn Header="Supply Category" DisplayMemberBinding="{Binding Supply_Category}"/>
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}"/>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="Background" Value="#FFFFF5E5"/>
+                            <!-- Change background color -->
+                            <Setter Property="Foreground" Value="Black"/>
+                            <!-- Change text color -->
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <!-- Make text bold -->
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <!-- Align text to center -->
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="Supplies Name" DisplayMemberBinding="{Binding Supplies_Name}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Supplies_Name}" Foreground="Black" FontFamily="Franklin Gothic Medium"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Supply Category" DisplayMemberBinding="{Binding Supply_Category}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Supply_Category}" Foreground="Black" FontFamily="Franklin Gothic Medium"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Price}" Foreground="Black" FontFamily="Franklin Gothic Medium"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Quantity">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -35,9 +67,9 @@
         </ListView>
 
         <!-- Customer Information and Payment Details -->
-        <StackPanel Grid.Column="1" Margin="10">
+        <StackPanel Margin="509,53,10,53" Grid.ColumnSpan="2">
             <TextBlock Text="Customer Name:" FontWeight="Bold" Margin="0,0,0,10"/>
-            <TextBox x:Name="txtCustomerName" Margin="0,0,0,10" Width="305" />
+            <TextBox x:Name="txtCustomerName" Margin="0,0,0,10" Width="220" BorderBrush="#FFE8E4E4" />
 
             <TextBlock Text="Payment Method:" FontWeight="Bold" Margin="0,0,0,10"/>
             <ComboBox x:Name="cmbPaymentMethod" Width="150" Margin="0,0,0,10">
@@ -46,13 +78,15 @@
             </ComboBox>
 
             <TextBlock Text="Total Amount" FontWeight="Bold" Margin="0,20,0,10"/>
-            <TextBlock x:Name="txtTotalAmount" Width="248"/>
-            <TextBlock Text="Payment Amount" FontWeight="Bold" Margin="0,20,0,10"/>
-            <TextBox x:Name="txtPaymentAmount" Margin="0,0,0,10" Width="268"/>
-
-            <Button Content="Checkout" HorizontalAlignment="Center" Width="120" Click="CheckoutButton_Click"/>
-
+            <TextBlock x:Name="txtTotalAmount" Width="175"/>
+            <TextBlock Text="Payment Amount:" FontWeight="Bold" Margin="0,20,0,10"/>
+            <TextBox x:Name="txtPaymentAmount" Margin="0,0,0,10" Width="222" BorderBrush="#FFE8E4E4"/>
+            <Button Content="Checkout" Width="120" Click="CheckoutButton_Click" Height="36" Background="#FFD7604B" BorderBrush="#FFD7604B" FontFamily="Franklin Gothic Medium" FontSize="16" FontWeight="Bold" Foreground="White"/>
         </StackPanel>
-        <Button Content="Back" Margin="24,323,287,87" Click="BackButton_Click"/>
+
+        <!-- Back Button -->
+        <Button Content="Back" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="34,376,0,0" Click="BackButton_Click" Width="58" Height="29" BorderBrush="#FFD7604B" Background="{x:Null}" FontFamily="Franklin Gothic Medium" Foreground="Black"/>
+        <Image HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="48" Source="/petsrus logo.png" Stretch="Fill" Margin="10,8,0,0"/>
+
     </Grid>
 </Window>

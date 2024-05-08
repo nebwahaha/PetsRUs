@@ -28,6 +28,7 @@ namespace PetsRUs
             LoadPets(petType);
             _username = username;
             _staffID = staffID; // Assign _staffID here
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void LoadPets(string petType)
@@ -91,6 +92,11 @@ namespace PetsRUs
             {
                 MessageBox.Show("Failed to generate Customer_ID or Order_ID.");
             }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

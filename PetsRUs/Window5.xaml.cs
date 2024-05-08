@@ -30,6 +30,7 @@ namespace PetsRUs
             _supplies = supplies;
             _staffID = staffID; // Assign the value of staffID to _staffID
             LoadSupplies();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void Add_to_cart_Click(object sender, RoutedEventArgs e)
@@ -76,6 +77,7 @@ namespace PetsRUs
             }
         }
 
+
         private void ShowCart_Click(object sender, RoutedEventArgs e)
         {
             petsrusDataContext lsDC = new petsrusDataContext(); // Initialize _lsDC
@@ -83,6 +85,11 @@ namespace PetsRUs
             // Pass _supplies and _staffID to Window6
             Window6 window6 = new Window6(Window6.CartItems, lsDC, _staffID, _supplies);
             window6.Show();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

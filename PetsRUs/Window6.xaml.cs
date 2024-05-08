@@ -163,6 +163,7 @@ namespace PetsRUs
             {
                 MessageBox.Show("Please enter valid total amount and payment amount.");
             }
+            Window6.CartItems.Clear();
         }
 
 

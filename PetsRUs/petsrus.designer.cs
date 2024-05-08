@@ -57,7 +57,7 @@ namespace PetsRUs
     #endregion
 		
 		public petsrusDataContext() : 
-				base(global::PetsRUs.Properties.Settings.Default.petsrusConnectionString1, mappingSource)
+				base(global::PetsRUs.Properties.Settings.Default.petsrusConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}

@@ -168,5 +168,11 @@
   <ItemGroup>
     <Resource Include="petsrus logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="adoptconfirm bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="plain bg brown.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

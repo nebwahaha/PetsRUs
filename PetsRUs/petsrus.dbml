@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="petsrus" Class="petsrusDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-BGT610F\SQLEXPRESS;Initial Catalog=petsrus;Integrated Security=True;Trust Server Certificate=True" SettingsObjectName="PetsRUs.Properties.Settings" SettingsPropertyName="petsrusConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-96KLI0Q\SQLEXPRESS;Initial Catalog=petsrus;Integrated Security=True;Trust Server Certificate=True" SettingsObjectName="PetsRUs.Properties.Settings" SettingsPropertyName="petsrusConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AdoptionStatus" Member="AdoptionStatus">
     <Type Name="AdoptionStatus">
       <Column Name="AdoptionStatus_ID" Type="System.String" DbType="VarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />

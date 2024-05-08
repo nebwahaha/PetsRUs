@@ -25,6 +25,7 @@ namespace PetsRUs
 
             // Set Total Amount
             txtTotalAmount.Text = "5000"; // Fixed price for adopting a pet
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)

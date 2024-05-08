@@ -23,7 +23,7 @@ namespace PetsRUs
         public Window1(string username, string staffID, petsrusDataContext lsDC)
         {
             InitializeComponent();
-            txtStaffName.Text = $"Staff: {username}";
+            txtStaffName.Text = $"Hello: {username}";
             this.username = username;
             _staffID = staffID; // Assign _staffID
             _lsDC = lsDC;
@@ -86,5 +86,7 @@ namespace PetsRUs
             Window5 window5 = new Window5(supplies.Cast<dynamic>().ToList(), _staffID);
             window5.Show();
         }
+
+      
     }
 }

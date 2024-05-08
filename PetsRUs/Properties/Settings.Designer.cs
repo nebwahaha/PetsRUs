@@ -26,7 +26,7 @@ namespace PetsRUs.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-BGT610F\\SQLEXPRESS;Initial Catalog=petsrus;Integrated Securit" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-96KLI0Q\\SQLEXPRESS;Initial Catalog=petsrus;Integrated Securit" +
             "y=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True")]
         public string petsrusConnectionString {
             get {
@@ -37,11 +37,22 @@ namespace PetsRUs.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-BGT610F\\SQLEXPRESS;Initial Catalog=petsrus;Integrated Securit" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-96KLI0Q\\SQLEXPRESS;Initial Catalog=petsrus;Integrated Securit" +
             "y=True;TrustServerCertificate=True")]
         public string petsrusConnectionString1 {
             get {
                 return ((string)(this["petsrusConnectionString1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-96KLI0Q\\SQLEXPRESS;Initial Catalog=petsrus;Integrated Securit" +
+            "y=True;TrustServerCertificate=True")]
+        public string petsrusConnectionString2 {
+            get {
+                return ((string)(this["petsrusConnectionString2"]));
             }
         }
     }

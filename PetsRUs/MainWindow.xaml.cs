@@ -28,6 +28,7 @@ namespace PetsRUs
 
             _lsDC = new petsrusDataContext(
                 Properties.Settings.Default.petsrusConnectionString);
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
