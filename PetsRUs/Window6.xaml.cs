@@ -16,15 +16,16 @@ namespace PetsRUs
 {
     public partial class Window6 : Window
     {
-        private Dictionary<string, dynamic> _cartItems = new Dictionary<string, dynamic>();
+        //private Dictionary<string, dynamic> _cartItems = new Dictionary<string, dynamic>();
         private petsrusDataContext _lsDC;
         private string _staffID;
         private List<dynamic> _supplies; // Add _supplies as a class member
 
+
+
         public Window6(Dictionary<string, dynamic> cartItems, petsrusDataContext lsDC, string staffID, List<dynamic> supplies)
         {
             InitializeComponent();
-            _cartItems = cartItems;
             _lsDC = lsDC; // Initialize _lsDC
             _staffID = staffID;
             _supplies = supplies; // Initialize _supplies
@@ -32,15 +33,17 @@ namespace PetsRUs
             CalculateTotalAmount();
         }
 
+        public static Dictionary<string, dynamic> CartItems { get; } = new Dictionary<string, dynamic>();
+
         private void LoadCartItems()
         {
-            cartListView.ItemsSource = _cartItems.Values.ToList();
+            cartListView.ItemsSource = CartItems.Values.ToList();
         }
 
         private void CalculateTotalAmount()
         {
             decimal totalAmount = 0;
-            foreach (var item in _cartItems.Values)
+            foreach (var item in CartItems.Values)
             {
                 totalAmount += item.Price * item.Quantity;
             }
@@ -88,7 +91,8 @@ namespace PetsRUs
                         _lsDC.Customers.InsertOnSubmit(newCustomer);
 
                         // Insert orders for each item in the cart
-                        foreach (var item in _cartItems.Values)
+
+                        foreach (var item in Window6.CartItems.Values)
                         {
                             // Generate a unique order ID based on the counter
                             orderID = "OID" + orderCounter.ToString("D3");
@@ -105,6 +109,24 @@ namespace PetsRUs
                                 Supplies_ID = item.Supplies_ID // Assign Supplies_ID
                             };
                             _lsDC.Orders.InsertOnSubmit(newOrder);
+
+                            string stockID = item.Stock_ID.ToString();
+
+                            var stockItem = _lsDC.StockSupplies.FirstOrDefault(stock => stock.Stock_ID == stockID);
+                            if (stockItem != null)
+                            {
+                                // Deduct the ordered quantity
+                                stockItem.Stock_Quantity -= item.Quantity;
+
+                                // Submit changes to the database
+                                _lsDC.SubmitChanges();
+                                Console.WriteLine("Stock quantity deducted successfully.");
+                            }
+                            else
+                            {
+                                // Log an error if stock item not found
+                                Console.WriteLine("Error: Stock item not found.");
+                            }
                         }
 
                         // Insert payment record
@@ -150,7 +172,7 @@ namespace PetsRUs
             if (selectedCartItem != null)
             {
                 string itemId = $"{selectedCartItem.Supplies_Name}_{selectedCartItem.Supply_Category}_{selectedCartItem.Price}";
-                if (_cartItems.ContainsKey(itemId))
+                if (CartItems.ContainsKey(itemId))
                 {
                     // Create a new instance of the anonymous type with the updated quantity
                     var updatedItem = new
@@ -163,7 +185,7 @@ namespace PetsRUs
                     };
 
                     // Update the item in the cart
-                    _cartItems[itemId] = updatedItem;
+                    CartItems[itemId] = updatedItem;
                     LoadCartItems();
                     CalculateTotalAmount();
                 }
@@ -176,7 +198,7 @@ namespace PetsRUs
             if (selectedCartItem != null)
             {
                 string itemId = $"{selectedCartItem.Supplies_Name}_{selectedCartItem.Supply_Category}_{selectedCartItem.Price}";
-                if (_cartItems.ContainsKey(itemId) && _cartItems[itemId].Quantity > 1)
+                if (CartItems.ContainsKey(itemId) && CartItems[itemId].Quantity > 1)
                 {
                     // Create a new instance of the anonymous type with the updated quantity
                     var updatedItem = new
@@ -189,12 +211,13 @@ namespace PetsRUs
                     };
 
                     // Update the item in the cart
-                    _cartItems[itemId] = updatedItem;
+                    CartItems[itemId] = updatedItem;
                     LoadCartItems();
                     CalculateTotalAmount();
                 }
             }
         }
+
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Window5 window5 = new Window5(_supplies, _staffID);

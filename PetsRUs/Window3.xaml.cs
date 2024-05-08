@@ -80,7 +80,7 @@ namespace PetsRUs
                 };
                 _lsDC.Orders.InsertOnSubmit(newOrder);
 
-                // Update Pet table to set adoption status to "AS2"
+                // Update Pet table to set adoption status to "AS2" and assign Customer_ID
                 var adoptedPets = from pet in _lsDC.Pets
                                   where pet.Pet_ID == _petID
                                   select pet;
@@ -88,6 +88,7 @@ namespace PetsRUs
                 foreach (var pet in adoptedPets)
                 {
                     pet.AdoptionStatus_ID = "AS2";
+                    pet.Customer_ID = _customerID; // Assign Customer_ID to the adopted pet
                 }
 
                 // Submit changes to the database
@@ -105,11 +106,5 @@ namespace PetsRUs
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-        //private string GeneratePaymentID()
-        //{
-        //    // Generate a unique Payment_ID
-        //    int count = _lsDC.Payments.Count() + 1;
-        //    return "PID" + count.ToString("D3"); // Format count to have leading zeros if necessary
-        //}
     }
 }

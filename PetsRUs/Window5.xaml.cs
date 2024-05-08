@@ -16,11 +16,8 @@ namespace PetsRUs
 {
     public partial class Window5 : Window
     {
-        private Dictionary<string, dynamic> _cartItems = new Dictionary<string, dynamic>();
         private List<dynamic> _supplies;
         private string _staffID;
-        private petsrusDataContext _lsDC;
-        //private List<dynamic> _cartItems = new List<dynamic>();
 
         private void LoadSupplies()
         {
@@ -44,21 +41,22 @@ namespace PetsRUs
             string itemId = $"{selectedSupply.Supplies_Name}_{selectedSupply.Supply_Category}_{selectedSupply.Price}";
 
             // Check if the item already exists in the cart
-            if (_cartItems.ContainsKey(itemId))
+            if (Window6.CartItems.ContainsKey(itemId))
             {
                 // If the item exists, create a new anonymous type with the updated quantity
-                var existingItem = _cartItems[itemId];
+                var existingItem = Window6.CartItems[itemId];
                 var updatedItem = new
                 {
                     Supplies_Name = existingItem.Supplies_Name,
                     Supply_Category = existingItem.Supply_Category,
                     Price = existingItem.Price,
                     Quantity = existingItem.Quantity + 1,
-                    Supplies_ID = selectedSupply.Supplies_ID // Include Supplies_ID
+                    Supplies_ID = selectedSupply.Supplies_ID, // Include Supplies_ID
+                    Stock_ID = selectedSupply.Stock_ID // Include Stock_ID
                 };
 
                 // Update the item in the cart
-                _cartItems[itemId] = updatedItem;
+                Window6.CartItems[itemId] = updatedItem;
             }
             else
             {
@@ -69,22 +67,21 @@ namespace PetsRUs
                     Supply_Category = selectedSupply.Supply_Category,
                     Price = selectedSupply.Price,
                     Quantity = 1,
-                    Supplies_ID = selectedSupply.Supplies_ID // Include Supplies_ID
+                    Supplies_ID = selectedSupply.Supplies_ID, // Include Supplies_ID
+                    Stock_ID = selectedSupply.Stock_ID // Include Stock_ID
                 };
 
                 // Add the item to the cart
-                _cartItems.Add(itemId, cartItem);
+                Window6.CartItems.Add(itemId, cartItem);
             }
         }
-
-
 
         private void ShowCart_Click(object sender, RoutedEventArgs e)
         {
             petsrusDataContext lsDC = new petsrusDataContext(); // Initialize _lsDC
 
-            // Assuming _staffID and _supplies are already defined somewhere in your code
-            Window6 window6 = new Window6(_cartItems, lsDC, _staffID, _supplies); // Pass _lsDC and _supplies to Window6
+            // Pass _supplies and _staffID to Window6
+            Window6 window6 = new Window6(Window6.CartItems, lsDC, _staffID, _supplies);
             window6.Show();
         }
     }

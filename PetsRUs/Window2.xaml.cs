@@ -32,9 +32,10 @@ namespace PetsRUs
 
         private void LoadPets(string petType)
         {
-            // Retrieve data from the Pet table filtered by pet type
+            // Retrieve data from the Pet table filtered by pet type and adoption status AS1 or AS3
             var pets = (from p in _lsDC.Pets
-                        where p.Pet_Type == petType
+                        where p.Pet_Type == petType &&
+                              (p.AdoptionStatus_ID == "AS1" || p.AdoptionStatus_ID == "AS3")
                         select new
                         {
                             p.Pet_ID,
@@ -49,6 +50,8 @@ namespace PetsRUs
             // Bind the data to the ListView
             petListView.ItemsSource = pets;
         }
+
+
         private string GenerateCustomerID()
         {
             int count = _lsDC.Customers.Count() + 1;

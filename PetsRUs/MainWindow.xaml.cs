@@ -14,10 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PetsRUs
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+{   
     public partial class MainWindow : Window
     {
         private petsrusDataContext _lsDC = null;
